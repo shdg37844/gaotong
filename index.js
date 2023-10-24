@@ -1,12 +1,12 @@
 const PAGE = {
     data: {
-        navigatorBarArr: ['section-1', 'section-2', 'section-3', 'section-4', 'section-5'],
+        navigatorBarArr: ['intro-section', 'onlineCouse-section', 'teachers-section', 'products-section', 'qualcomm-section'],
         navigatorBarActiveId: '',
         navigatorBarFixed: false,
         navigatorBarFixedOffset: 496,
         navigatorBarHeight: 70,
 
-        index: 0,
+        index: 1,
         duration: 500,
         isLock: false,
         translateX: 0,
@@ -58,38 +58,58 @@ const PAGE = {
         }
     },
 
-
-    clone: function () {
+     /* clone: function () {
         let swiperItem = document.getElementsByClassName('swiper-item');
+        let swiperList = document.getElementById('swiper-list');
+        let swiperItemWidth = (swiperList.offsetWidth) / 9;
+        PAGE.data.defaultLength = swiperItem.length;
+        PAGE.data.itemWidth = swiperItemWidth;
+        let index = PAGE.data.index;
+        PAGE.data.translateX = -(swiperItemWidth + swiperItemWidth * index);
+
         let firstItem = swiperItem[0].cloneNode(true);
         let secondItem = swiperItem[1].cloneNode(true);
-        let thirdItem1 = swiperItem[2].cloneNode(true);
-
-        let thirdItem2 = swiperItem[2].cloneNode(true);
         let fourthItem = swiperItem[3].cloneNode(true);
         let lastItem = swiperItem[swiperItem.length - 1].cloneNode(true);
 
-        let swiperList = document.getElementById('swiper-list');
-        
-        let swiperItemWidth = (swiperList.offsetWidth) / 11;
-        PAGE.data.defaultLength = swiperItem.length;
-        PAGE.data.itemWidth = swiperItemWidth;
-
-        let index = PAGE.data.index;
-        PAGE.data.translateX = - (swiperItemWidth + swiperItemWidth * index);
-
         swiperList.appendChild(firstItem);
         swiperList.appendChild(secondItem);
-        swiperList.appendChild(thirdItem1);
-
-
         swiperList.prepend(lastItem);
-        swiperList.prepend(fourthItem);
-        swiperList.prepend(thirdItem2);
+        swiperList.prepend(fourthItem); 
+
+
+
+        PAGE.goIndex(index);
+    },  */
+
+    clone: function () {
+        let swiperList = document.getElementById('swiper-list');
+        let swiperItem = Array.from(swiperList.getElementsByClassName('swiper-item')); // 使用Array.from得到一个静态的数组
+        let swiperItemWidth = (swiperList.offsetWidth) / 9;
+        PAGE.data.defaultLength = swiperItem.length;
+        PAGE.data.itemWidth = swiperItemWidth;
+        let index = PAGE.data.index;
+        PAGE.data.translateX = -(swiperItemWidth + swiperItemWidth * index);
+
+        // 克隆最后两个项目到开头
+        for (let i = swiperItem.length - 1; i >= swiperItem.length - 2; i--) {
+            let clonedItem = swiperItem[i].cloneNode(true);
+            swiperList.prepend(clonedItem);
+        }
+
+        // 克隆前两个项目到结尾
+        for (let i = 0; i < 2; i++) {
+            let clonedItem = swiperItem[i].cloneNode(true);
+            swiperList.appendChild(clonedItem);
+        }
+
         PAGE.goIndex(index);
     },
 
+
+
     goIndex: function (index) {
+        console.log('index', index);
         let swiperDuration = PAGE.data.duration;
         let swiperItemWidth = PAGE.data.itemWidth;
         let beginTranslateX = PAGE.data.translateX;

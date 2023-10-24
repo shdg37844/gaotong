@@ -411,7 +411,8 @@ body {
     margin-top: 61px;
     overflow: hidden;
     gap: 50px;
-    width: 2645px;
+     width: 2155px;    
+     /* 2155 = 195*9+8*50 */
 }
 
 .swiper-item {
