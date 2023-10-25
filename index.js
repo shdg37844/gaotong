@@ -29,16 +29,10 @@ const PAGE = {
 
         let courseDetailContentLeft = document.getElementById('course-detail-content-left')
         this.onEventLister(courseDetailContentLeft, 'click', 'course-left-item-chapter', this.hideCouse);
-        this.onEventListerWithChildren(courseDetailContentLeft, 'click', 'course-left-item-chapter', this.hideCouse);
     },
-    onEventLister: function (parentNode, action, childClassName, callback) {
-        parentNode.addEventListener(action, function (e) {
-            e.target.className.indexOf(childClassName) >= 0 && callback(e);
-        })
-    },
-
+ 
     //展开关闭监听器：当点击的元素为childClassName的子元素
-    onEventListerWithChildren: function (parentNode, action, childClassName, callback) {
+    onEventLister: function (parentNode, action, childClassName, callback) {
         parentNode.addEventListener(action, function (e) {
             let element = e.target.closest('.' + childClassName);  //把childClassName变为类选择器
             if (element) {
@@ -46,7 +40,8 @@ const PAGE = {
             }
         })
     },
-    hideCouse: function (e) {
+
+    hideCouse:function(e) {
         let chapter = e.target.closest('.course-left-item-chapter');
         let box = chapter.nextElementSibling;
         let isActive = box.className.indexOf('active');
@@ -58,7 +53,7 @@ const PAGE = {
         }
     },
 
-     /* clone: function () {
+    /*  clone: function () {
         let swiperItem = document.getElementsByClassName('swiper-item');
         let swiperList = document.getElementById('swiper-list');
         let swiperItemWidth = (swiperList.offsetWidth) / 9;
@@ -80,7 +75,7 @@ const PAGE = {
 
 
         PAGE.goIndex(index);
-    },  */
+    },   */
 
     clone: function () {
         let swiperList = document.getElementById('swiper-list');
@@ -104,9 +99,7 @@ const PAGE = {
         }
 
         PAGE.goIndex(index);
-    },
-
-
+    }, 
 
     goIndex: function (index) {
         console.log('index', index);
